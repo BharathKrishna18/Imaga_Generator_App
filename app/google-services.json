@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "350355630187",
+    "project_id": "stable-diffusion-fc6ac",
+    "storage_bucket": "stable-diffusion-fc6ac.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:350355630187:android:c6154ddc4b5e327aace92e",
+        "android_client_info": {
+          "package_name": "com.bcorp.imagageneratorapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAixYyprY9Ne4wCgghN2Dt2laLs5XV9AaQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
