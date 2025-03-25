@@ -32,79 +32,16 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.bcorp.imagageneratorapp.config.ImageViewModel
+import com.bcorp.imagageneratorapp.config.NavScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            MainScreen()
+            NavScreen()
         }
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
-@Composable
-fun MainScreen() {
-    val config = LocalConfiguration.current
-    val viewModel = remember { ImageViewModel(config) } // ViewModel should be remembered
-    val isLoading = remember { mutableStateOf(false) }
-    val prompt = remember { mutableStateOf("") }
-
-    // Observe LiveData from ViewModel
-    val imageBitmap by viewModel.imageBit.observeAsState()
-    val errorMessage by viewModel.errorMessage.observeAsState()
-
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(text = "Image Generator", color = Color.White) },
-                colors = TopAppBarDefaults.topAppBarColors(Color.Red)
-            )
-        }
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(15.dp),
-            modifier = Modifier.padding(vertical = 150.dp, horizontal = 50.dp)
-        ) {
-            OutlinedTextField(
-                value = prompt.value,
-                onValueChange = { prompt.value = it },
-                keyboardActions = KeyboardActions.Default,
-                keyboardOptions = KeyboardOptions.Default,
-                label = { Text(text = "Enter your prompt here") }
-            )
-
-            OutlinedButton(
-                onClick = {
-                    isLoading.value = true
-                    Log.d("Prompt", prompt.value)
-                    viewModel.generateImage(prompt = prompt.value) {
-                        isLoading.value = false
-                    }
-                }
-            ) {
-                Text(text = "Generate")
-            }
-
-            if (isLoading.value) {
-                CircularProgressIndicator(modifier = Modifier.size(100.dp))
-            } else {
-                imageBitmap?.let {
-                    AsyncImage(
-                        model = it,
-                        contentDescription = "Generated Image",
-                        modifier = Modifier.size(500.dp) // Adjust size as needed
-                    )
-                } ?: run {
-                    errorMessage?.let { msg ->
-                        Text(text = "Error: $msg", color = Color.Red)
-                    }
-                }
-            }
-        }
-    }
-}
 

@@ -16,7 +16,7 @@ object RetrofitInstance {
            .build()
 
        val retrofit = Retrofit.Builder()
-           .baseUrl("https://8080-01jmy2m7zhhtb0crezfgmzj5yv.cloudspaces.litng.ai/")
+           .baseUrl("https://8000-01jmy2m7zhhtb0crezfgmzj5yv.cloudspaces.litng.ai/")
            .addConverterFactory(GsonConverterFactory.create())
            .client(client)
            .build()
